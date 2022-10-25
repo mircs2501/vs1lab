@@ -125,6 +125,17 @@ a {
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
+.h2 {
+  display: flex;
+  flex-direction: column;
+  background-color: #00B7FF;
+}
+
+.discovery__search {
+  display: flex;
+  flex-direction: column;
+ 
+}
 
 
 /* ### TODO ### Styles for Footer Component */
