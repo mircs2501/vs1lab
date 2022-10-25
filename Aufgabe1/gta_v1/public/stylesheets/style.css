@@ -158,16 +158,12 @@ legend {
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
-.h2 {
+#discoveryFilterForm{
   display: flex;
-  flex-direction: column;
-  background-color: #00B7FF;
 }
-
-.discovery__search {
+#discoveryFilterForm #discoveryFieldset input {
   display: flex;
   flex-direction: column;
- 
 }
 
 
