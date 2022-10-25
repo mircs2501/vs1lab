@@ -158,14 +158,17 @@ legend {
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
-#discoveryFilterForm{
+#discoveryFilterForm {
   display: flex;
-}
-#discoveryFilterForm #discoveryFieldset input {
-  display: flex;
-  flex-direction: column;
 }
 
+#discoveryFilterForm #discoveryFieldset label {
+  display: flex;
+  flex-flow: column wrap;
+  padding-left: 0.5px;
+  align-items: start;
+
+}
 
 /* ### TODO ### Styles for Footer Component */
 
