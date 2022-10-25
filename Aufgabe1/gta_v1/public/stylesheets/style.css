@@ -170,6 +170,23 @@ legend {
 
 }
 
+#discoveryResults > :nth-child(n) {
+  
+  display: flex;
+  
+  color: rgb(0, 110, 255);
+  background-color: gainsboro;
+  border-width:1px;
+  border-style:solid;
+  border-color: gray;
+  margin: 5px;
+  max-width: max-content;
+ 
+ 
+  
+  }
+
+
 /* ### TODO ### Styles for Footer Component */
 
 /* ... your code here ... */
