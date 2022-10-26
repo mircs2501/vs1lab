@@ -159,24 +159,12 @@ legend {
 
 /* ... your code here ... */
 
-#discoveryTitle {
-  padding: 0.2vmax;
-  margin: 5px;
-}
-
-#discoveryFilterForm {
+#discoveryFieldset{
   display: flex;
-  padding: 0.2vmax;
-  margin: 5px;
-}
-
-#discoveryFilterForm #discoveryFieldset label {
-  display: flex;
-  flex-flow: column wrap;
-  padding: 0.2vmax;
-  align-items: start;
-  margin: 5px;
-
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  margin: 10px;
 }
 
 #discoveryResults > :nth-child(n) {
