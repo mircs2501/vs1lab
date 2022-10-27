@@ -135,10 +135,72 @@ align-items: center;
 
 /* ... your code here ... */
 
+#tag-form {
+  display: flex;
+}
+
+#tag-form #tag-fieldset {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+#tag-form #tag-fieldset input {
+  display: flex;
+  flex-basis: 100%;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+#tag-form .input-tag {
+  margin: 0px 10px;
+}
+
+#tag-submit {
+  width: 100%;
+  padding: 0px;
+}
+
+
+legend {
+  margin-left: 10px;
+}
+
 
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
+
+#discoveryFieldset{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#discoveryResults > :nth-child(n) {
+  
+  display: flex;
+  
+  color: rgb(0, 110, 255);
+  background-color: gainsboro;
+  border-width:1px;
+  border-style:solid;
+  border-color: gray;
+  margin: 5px;
+  max-width: 200px;
+  padding: 0.5vmax;
+  
+  
+  
+  }
+ 
+ 
+  
+  
 
 
 /* ### TODO ### Styles for Footer Component */

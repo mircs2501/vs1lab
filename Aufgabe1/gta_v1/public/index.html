@@ -27,31 +27,31 @@
 
             <!-- ############### VS1Lab 1a Form 1 Start -->
             <form id="tag-form" action="/tagging" method="post">
-                <fieldset>
+                <fieldset id="tag-fieldset">
                     <legend>Add a new GeoTag</legend>
-                    <label for="latitude">
+                    <label class="input-tag">
                         Latitude:
                         <input id="tag-latitude" type="number" name="tag-latitude" value="48.9631045"
                             readonly="readonly" input>
                     </label>
-                    <label>
+                    <label class="input-tag">
                         Longitude:
                         <input id="tag-longitude" type="number" name="tag-longitude" value="8.8098522"
                             readonly="readonly" input>
-                    </label>
+                    </label class="input-tag">
 
-                    <label>
+                    <label class="input-tag">
                         Name:
                         <input id="tag-name" type="text" name="tag-name" placeholder="Ötisheim" maxlength="10" required>
                     </label>
 
-                    <label>
+                    <label class="input-tag">
                         Hashtag:
                         <input id="tag-hashtag" type="text" name="tag-hashtag" placeholder="#Aize" maxlength="11"
                             pattern="#{1}.{0,10}">
                     </label>
 
-                    <label>
+                    <label class="input-tag">
                         <input id="tag-submit" type="submit" name="tag-submit" value="Add Tag" input>
                     </label>
                 </fieldset>
@@ -68,10 +68,10 @@
             <!-- ############### VS1Lab 1a Form 2 Start -->
             <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
 
-                <fieldset>
+                <fieldset id="discoveryFieldset">
                     <legend> Search a GeoTag</legend>
                     <label>
-                        Search term or keywords:
+                        <div>Search term or keywords:</div>
                         <input id="discoverySearch" type="search" name="discoverySearch" placeholder="Ötisheim">
                     </label>
 
