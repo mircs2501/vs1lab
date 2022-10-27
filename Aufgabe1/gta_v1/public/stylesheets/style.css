@@ -30,7 +30,6 @@ html {
   --gray-color: #666;
 }
 
-
 /* HTML element styles */
 
 body {
@@ -112,14 +111,15 @@ a {
 .header__image {
   max-width: 100px;
 }
-header {
-background-color: beige;
-display:flex; 
-padding: 30px;
 
-justify-content: space-between;
-flex-direction: row; 
-align-items: center;
+header {
+  background-color: beige;
+  display: flex;
+  padding: 30px;
+
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
 
 }
 
@@ -136,7 +136,14 @@ align-items: center;
 /* ... your code here ... */
 
 #tag-form {
+  display: block;
+  margin: 0px;
+}
+
+.main__tagging {
   display: flex;
+  flex-direction: column;
+  margin: 0px 100px 0px 50px;
 }
 
 #tag-form #tag-fieldset {
@@ -173,52 +180,88 @@ legend {
 
 /* ... your code here ... */
 
-#discoveryFieldset{
+#discoveryFieldset {
   display: flex;
   flex-direction: column;
-  gap: 5px;
   padding: 10px;
-  margin: 10px;
+  margin: 0px;
 }
 
-#discoveryResults > :nth-child(n) {
-  
+#discoveryFieldset input {
   display: flex;
-  
+  flex-basis: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+#discoveryResults> :nth-child(n) {
+
+  display: flex;
+
   color: rgb(0, 110, 255);
   background-color: gainsboro;
-  border-width:1px;
-  border-style:solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: gray;
-  margin: 5px;
+  margin-bottom: 10px;
   max-width: 200px;
   padding: 0.5vmax;
-  
-  
-  
-  }
- 
- 
-  
-  
+}
 
+.main__discovery {
+  margin: 0px 100px 0px 50px;
+}
 
 /* ### TODO ### Styles for Footer Component */
 footer {
-background-color: beige;
-display: flex; 
+  background-color: beige;
+  display: flex;
 
-padding-top: 30px;
-padding-bottom: 30px;
-padding-left: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 20px;
 
-justify-content: flex-start;
-flex-direction: row; 
-align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
 }
+
 /* ... your code here ... */
 
+.discovery__wrapper {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+main {
+  margin: 20px;
+}
+
+.discovery__map span {
+  display: block;
+}
 
 /* ### TODO ### Media Queries */
+
+@media only screen and (max-width: 1000px) {
+
+  main {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+  }
+
+  .discovery__wrapper {
+    flex-direction: column;
+  }
+
+  .main__tagging {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+  }
+}
+
+
 
 /* ... your code here ... */
