@@ -107,7 +107,21 @@ a {
 }
 
 
+
 /* ### TODO ### Styles for Header Component */
+.header__image {
+  max-width: 100px;
+}
+header {
+background-color: beige;
+display:flex; 
+padding: 30px;
+
+justify-content: space-between;
+flex-direction: row; 
+align-items: center;
+
+}
 
 /* ... your code here ... */
 
@@ -128,7 +142,18 @@ a {
 
 
 /* ### TODO ### Styles for Footer Component */
+footer {
+background-color: beige;
+display: flex; 
 
+padding-top: 30px;
+padding-bottom: 30px;
+padding-left: 20px;
+
+justify-content: flex-start;
+flex-direction: row; 
+align-items: center;
+}
 /* ... your code here ... */
 
 
