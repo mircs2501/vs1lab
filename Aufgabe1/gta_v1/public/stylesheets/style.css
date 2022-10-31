@@ -130,6 +130,7 @@ header {
 /* ### TODO ### Styles for Main Component */
 main {
   margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 /* ### TODO ### Styles for Tagging component */
@@ -209,7 +210,7 @@ legend {
   border-color: gray;
   margin-bottom: 10px;
   max-width: 200px;
-  padding: 0.5vmax;
+  padding: 2vmax;
 }
 
 .main__discovery {
@@ -262,6 +263,10 @@ footer {
     width: 100%;
   }
 
+  .col-4 {
+    width: 100%;
+  }
+
   .col-8 {
     width: 100%;
   }
@@ -274,6 +279,10 @@ footer {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  #discoveryResults> :nth-child(n) {
+    max-width: none;
   }
 
   main {
