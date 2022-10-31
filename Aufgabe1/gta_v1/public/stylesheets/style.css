@@ -51,7 +51,9 @@ a {
 /* Grid styles (no changes required) */
 
 .row {
-  width: 100%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: space-between;
   flex: 1;
@@ -120,16 +122,15 @@ header {
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-
 }
 
 /* ... your code here ... */
 
 
 /* ### TODO ### Styles for Main Component */
-
-/* ... your code here ... */
-
+main {
+  margin-top: 3%;
+}
 
 /* ### TODO ### Styles for Tagging component */
 
@@ -143,7 +144,9 @@ header {
 .main__tagging {
   display: flex;
   flex-direction: column;
+  /*
   margin: 0px 100px 0px 50px;
+  */
 }
 
 #tag-form #tag-fieldset {
@@ -159,6 +162,7 @@ header {
   flex-basis: 100%;
   margin: 10px 0px;
   padding: 10px;
+  width: 200px;
 }
 
 #tag-form .input-tag {
@@ -166,7 +170,6 @@ header {
 }
 
 #tag-submit {
-  width: 100%;
   padding: 0px;
 }
 
@@ -192,6 +195,7 @@ legend {
   flex-basis: 100%;
   padding: 10px;
   margin-top: 10px;
+  width: 200px;
 }
 
 #discoveryResults> :nth-child(n) {
@@ -209,7 +213,24 @@ legend {
 }
 
 .main__discovery {
+  /*
   margin: 0px 100px 0px 50px;
+  */
+}
+
+.discovery__wrapper {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.discovery__map span {
+  display: block;
+}
+
+.discovery__map img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ### TODO ### Styles for Footer Component */
@@ -228,37 +249,51 @@ footer {
 
 /* ... your code here ... */
 
-.discovery__wrapper {
-  display: flex;
-  margin-top: 20px;
-  gap: 10px;
-}
-
-main {
-  margin: 20px;
-}
-
-.discovery__map span {
-  display: block;
-}
-
 /* ### TODO ### Media Queries */
 
 @media only screen and (max-width: 1000px) {
 
+  header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .col-3 {
+    width: 100%;
+  }
+
+  .col-8 {
+    width: 100%;
+  }
+
+  .col-9 {
+    width: 100%;
+  }
+
+  .row {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   main {
+    margin-top: 5%;
     flex-wrap: wrap;
+    gap: 30px;
     flex-shrink: 1;
+  }
+
+  body {
+    min-width: 500px;
   }
 
   .discovery__wrapper {
     flex-direction: column;
+    margin: 20px 0px;
   }
 
   .main__tagging {
-    display: flex;
     flex-direction: column;
-    flex-basis: 100%;
   }
 }
 
