@@ -287,6 +287,14 @@ footer {
     flex-direction: column;
     margin: 20px 0px;
   }
+
+  #tag-form #tag-fieldset input {
+    width: 100%;
+  }
+
+  #discoveryFieldset input {
+    width: 100%;
+  }
 }
 
 
