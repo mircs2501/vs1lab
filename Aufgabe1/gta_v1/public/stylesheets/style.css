@@ -153,14 +153,11 @@ main {
 #tag-form #tag-fieldset {
   display: flex;
   flex-direction: column;
-  flex-grow: 0;
-  justify-content: center;
   padding-top: 10px;
 }
 
 #tag-form #tag-fieldset input {
   display: flex;
-  flex-basis: 100%;
   margin: 10px 0px;
   padding: 10px;
   width: 200px;
@@ -188,7 +185,6 @@ legend {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  margin: 0px;
 }
 
 #discoveryFieldset input {
@@ -210,13 +206,7 @@ legend {
   border-color: gray;
   margin-bottom: 10px;
   max-width: 200px;
-  padding: 2vmax;
-}
-
-.main__discovery {
-  /*
-  margin: 0px 100px 0px 50px;
-  */
+  padding: 20px;
 }
 
 .discovery__wrapper {
@@ -289,20 +279,13 @@ footer {
     margin-top: 5%;
     flex-wrap: wrap;
     gap: 30px;
-    flex-shrink: 1;
   }
 
-  body {
-    min-width: 500px;
-  }
+
 
   .discovery__wrapper {
     flex-direction: column;
     margin: 20px 0px;
-  }
-
-  .main__tagging {
-    flex-direction: column;
   }
 }
 
