@@ -81,7 +81,7 @@ class MapManager {
      * @param {number} zoom The map zoom, defaults to 10
      * @returns {string} URL of generated map
      */
-    getMapUrl(latitude, longitude, tags = [], zoom = 10) {
+    getMapUrl(latitude, longitude, tags = [], zoom = 15) {
         if (this.#apiKey === '') {
             console.log("No API key provided.");
             return "images/mapview.jpg";
@@ -110,11 +110,16 @@ function updateLocation() {
 
 // Callback function
 function currentLocationDetails(locationHelper) {
-    alert(locationHelper.latitude);
+
+    //Updating mapView Element
+    testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
+    let mapURL = testManager.getMapUrl(locationHelper.latitude, locationHelper.longitude)
+    imageElement = document.getElementById("mapView")
+    imageElement.src = mapURL;
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    alert("Please change the script 'geotagging.js'");
+    // alert("Please change the script 'geotagging.js'");
     updateLocation();
 });
