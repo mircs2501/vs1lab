@@ -90,7 +90,7 @@ class MapManager {
         let tagList = `${latitude},${longitude}|marker-start`;
         tagList += tags.reduce((acc, tag) => `${acc}||${tag.latitude},${tag.longitude}|flag-${tag.name}`, "");
 
-        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v5/map?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&locations=${tagList}`;
+        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v5/map?key=${this.#apiKey}&size=600,400&type=light&zoom=${zoom}&center=${latitude},${longitude}&locations=${tagList}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
 
         return mapQuestUrl;
@@ -110,6 +110,14 @@ function updateLocation() {
 
 // Callback function
 function currentLocationDetails(locationHelper) {
+    //Updating Form Elements
+    latitudeInput = document.getElementById("tag-latitude")
+    longitudeInput = document.getElementById("tag-longitude")
+    hiddenLatitudeInput = document.getElementById("discoveryHiddenLatitude")
+    hiddenLongitudeInput = document.getElementById("discoveryHiddenLongitude")
+
+    latitudeInput.value = hiddenLatitudeInput.value = locationHelper.latitude
+    longitudeInput.value = hiddenLongitudeInput.value = locationHelper.longitude
 
     //Updating mapView Element
     testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
