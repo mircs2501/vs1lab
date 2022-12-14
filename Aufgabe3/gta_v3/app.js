@@ -44,8 +44,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // TODO: ... your code here ...
 app.use(express.static(__dirname + "/public"));
-app.use("/public/styles", express.static(__dirname + '/public/styles'));
-
 
 // Set dedicated script for routing
 app.use('/', indexRouter);
