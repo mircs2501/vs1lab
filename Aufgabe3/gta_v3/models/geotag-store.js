@@ -73,45 +73,16 @@ class InMemoryGeoTagStore {
         var returnTags = []
         leftoverTags.forEach(element => {
             var withoutHashtag = element.hashtag.replace('#', '')
-            if (element.name == keyword) {
+            if (element.name === keyword) {
                 returnTags.push(element);
-            } else if (element.hashtag == keyword) {
+            } else if (element.hashtag === keyword) {
                 returnTags.push(element);
             } else if (withoutHashtag === keyword) {
                 returnTags.push(element);
             }
         });
-
         return returnTags
     }
 }
-
-
-var geotagStorageTest = new InMemoryGeoTagStore();
-
-var testGeotag1 = new GeoTag("inProx1", "#1", 49.02, 8.02)
-var testGeotag2 = new GeoTag("inProx2", "#2", 49.005, 8.005)
-var testGeotag12 = new GeoTag("inProx3", "#3", 49.02, 8.02)
-var testGeotag22 = new GeoTag("inProx4", "#4", 49.005, 8.005)
-var testGeotag3 = new GeoTag("notInProx1", "#TestHashtag", 49.1, 8.1)
-var testGeotag4 = new GeoTag("notInProx2", "#TestHashtag", 4.89, 8)
-
-
-geotagStorageTest.addGeoTag(testGeotag1)
-geotagStorageTest.addGeoTag(testGeotag2)
-geotagStorageTest.addGeoTag(testGeotag3)
-geotagStorageTest.addGeoTag(testGeotag4)
-geotagStorageTest.addGeoTag(testGeotag12)
-geotagStorageTest.addGeoTag(testGeotag22)
-
-
-var arrayNearby = geotagStorageTest.getNearbyGeoTags(49, 8, 0.1);
-
-var arrayNearbyAndMatching = geotagStorageTest.searchNearbyGeoTags(49, 8, 0.1, "4");
-
-
-arrayNearby.forEach(element => console.log(element.name))
-console.log("____________________")
-arrayNearbyAndMatching.forEach(element => console.log(element.name))
 
 module.exports = InMemoryGeoTagStore
