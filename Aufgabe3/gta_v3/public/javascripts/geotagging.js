@@ -27,7 +27,12 @@ console.log("The geoTagging script is going to start...");
 // ... your code here ...
 
 function updateLocation() {
-    LocationHelper.findLocation(currentLocationDetails);
+    latitudeInput = document.getElementById("tag-latitude")
+    longitudeInput = document.getElementById("tag-longitude")
+    if(latitudeInput!=locationHelper.latitude &&longitudeInput !=locationHelper.longitude){
+        LocationHelper.findLocation(currentLocationDetails);
+    }
+  
 }
 
 // Callback function
