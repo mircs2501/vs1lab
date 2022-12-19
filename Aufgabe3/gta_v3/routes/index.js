@@ -45,6 +45,10 @@ const GeoTagStore = require('../models/geotag-store');
 const storage = new GeoTagStore();
 var updateArray = storage.getArray();
 
+
+var test1 = new GeoTag("Test1", "#test1", 49.01700, 8.392)
+storage.addGeoTag(test1);
+
 router.get('/', (req, res) => {
   res.render('index', { taglist: updateArray })
 });

@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <header class="header">
         <img src="./images/location.png" class="header__image" alt="an image of a map and location">
         <h1 class="header__title">GeoTagApp</h1>
@@ -103,7 +104,8 @@
                 </div>
 
                 <div class="discovery__map col-8">
-                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" />
+                    <img data-geotags=" <%= JSON.stringify(taglist) %>" src="./images/mapview.jpg"
+                        alt="a map with locations" id="mapView" />
                     <span>Result map</span>
                 </div>
             </div>
@@ -116,7 +118,7 @@
     </footer>
 
     <script src="./javascripts/geotagging.js"></script>
-    <script src="./javascripts/location-helper.js"></script> 
+    <script src="./javascripts/location-helper.js"></script>
     <script src="./javascripts/map-manager.js"></script>
 </body>
 

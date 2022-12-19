@@ -121,7 +121,7 @@ function currentLocationDetails(locationHelper) {
 
     //Updating mapView Element
     testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
-    let mapURL = testManager.getMapUrl(locationHelper.latitude, locationHelper.longitude)
+    let mapURL = testManager.getMapUrl(locationHelper.latitude, locationHelper.longitude, JSON.parse($('#img-map').data('geotags')))
     imageElement = document.getElementById("mapView")
     imageElement.src = mapURL;
 }

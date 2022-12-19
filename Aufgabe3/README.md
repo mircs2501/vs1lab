@@ -132,20 +132,20 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
     - [x] Methoden `addGeoTag`, `removeGeoTag`, `getNearbyGeoTags`, `searchNearbyGeoTags` realisieren
   - [x] **Beispieldaten für GeoTag Objekte** einlesen (`./model/geotag-examples.js`)
 
-- [ ] **Server Konfiguration und Routen** fertigstellen
-  - [ ] **Statische Dateien** bereitstellen (`./app.js`)
-  - [ ] Route `/tagging` zur **GeoTags Speicherung** erstellen. (`./routes/index.js`)
-  - [ ] Route `/discovery` zur **GeoTag Abfrage** erstellen. (`./routes/index.js`)
+- [x] **Server Konfiguration und Routen** fertigstellen
+  - [x] **Statische Dateien** bereitstellen (`./app.js`)
+  - [x] Route `/tagging` zur **GeoTags Speicherung** erstellen. (`./routes/index.js`)
+  - [x] Route `/discovery` zur **GeoTag Abfrage** erstellen. (`./routes/index.js`)
 
-- [ ] Server **Template** erweitern (`./views/index.ejs`)
-  - [ ] Koordinaten in Formulare eintragen
+- [x] Server **Template** erweitern (`./views/index.ejs`)
+  - [x] Koordinaten in Formulare eintragen
 
 ### 2. Teilaufgabe: Client-Anpassung
 
-- [ ] Teil A: `MapManager` und `LocationHelper` **Klassen in eigene Skripte auslagern** (`./public/javascripts/geotagging.js`)
-- [ ] Teil B:  `updateLocation`-Funktion **optimieren**
-  - [ ] Auslesen von Formularfeldern mit Koordinaten
-  - [ ] Bedingte Ausführung von `LocationHelper.findLocation()`
+- [x] Teil A: `MapManager` und `LocationHelper` **Klassen in eigene Skripte auslagern** (`./public/javascripts/geotagging.js`)
+- [x] Teil B:  `updateLocation`-Funktion **optimieren**
+  - [x] Auslesen von Formularfeldern mit Koordinaten
+  - [x] Bedingte Ausführung von `LocationHelper.findLocation()`
 
 ### 3. Teilaufgabe: Karten-Erweiterung
 

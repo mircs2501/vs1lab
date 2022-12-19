@@ -29,10 +29,10 @@ console.log("The geoTagging script is going to start...");
 function updateLocation() {
     latitudeInput = document.getElementById("tag-latitude")
     longitudeInput = document.getElementById("tag-longitude")
-    if(latitudeInput!=locationHelper.latitude &&longitudeInput !=locationHelper.longitude){
+    if (latitudeInput != null && longitudeInput != null) {
         LocationHelper.findLocation(currentLocationDetails);
     }
-  
+
 }
 
 // Callback function
@@ -48,7 +48,7 @@ function currentLocationDetails(locationHelper) {
 
     //Updating mapView Element
     testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
-    let mapURL = testManager.getMapUrl(locationHelper.latitude, locationHelper.longitude)
+    let mapURL = testManager.getMapUrl(locationHelper.latitude, locationHelper.longitude, JSON.parse(document.getElementById('mapView').getAttribute('data-geotags')));
     imageElement = document.getElementById("mapView")
     imageElement.src = mapURL;
 }
