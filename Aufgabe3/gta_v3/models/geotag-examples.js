@@ -11,68 +11,6 @@
  * TODO: populate your InMemoryGeoTagStore with these tags
  * 
  */
-class InMemoryGeoTagStore {
-
-    #geotagsArray = [];
-
-    constructor() {
-    }
-
-    addGeoTag(newGeotag) {
-        this.#geotagsArray.push(newGeotag);
-    }
-
-    removeGeoTag(name) {
-        var index;
-        for (i = 0; i < this.#geotagsArray.length; i++) {
-            if (name == this.#geotagsArray[i].name) {
-                index = i
-            }
-        }
-        if (index != undefined) {
-            this.#geotagsArray.splice(index, 1);
-        }
-    }
-
-    getNearbyGeoTags(latitude, longitude, radius) {
-        var returnTags = [];
-        this.#geotagsArray.forEach(element => {
-            var latDistance = latitude - element.latitude;
-            var lonDistance = longitude - element.longitude;
-
-            var distanceFromOrigin = Math.sqrt((latDistance * latDistance) + (lonDistance * lonDistance))
-
-            if (distanceFromOrigin <= radius) {
-                returnTags.push(element);
-            }
-        });
-        return returnTags
-    }
-
-    getArray() {
-        return this.#geotagsArray;
-    }
-
-    searchNearbyGeoTags(latitude, longitude, radius, keyword) {
-        var leftoverTags = this.getNearbyGeoTags(latitude, longitude, radius);
-
-        var returnTags = []
-        leftoverTags.forEach(element => {
-            var withoutHashtag = element.hashtag.replace('#', '')
-            if (element.name == keyword) {
-                returnTags.push(element);
-            } else if (element.hashtag == keyword) {
-                returnTags.push(element);
-            } else if (withoutHashtag === keyword) {
-                returnTags.push(element);
-            }
-        });
-
-        return returnTags
-    }
-}
-
-
 class GeoTagExamples {
     /**
      * Provides some geoTag data
@@ -95,21 +33,5 @@ class GeoTagExamples {
 }
 const GeoTag = require('./geoTag');
 //const InMemoryGeoTagStore = require('./geoTag')
-
-var geoTags = new InMemoryGeoTagStore();
-var geoTagsArray = GeoTagExamples.tagList;
-
-geoTagsArray.forEach(element => {
-    var temp = new GeoTag(element[0], element[3], element[1], element[2]);
-    geoTags.addGeoTag(temp)
-})
-
-geoTags.getArray().forEach(element => console.log(element.name))
-
-
-
-
-
-
 
 module.exports = GeoTagExamples;

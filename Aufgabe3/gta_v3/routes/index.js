@@ -53,8 +53,11 @@ var latitudeServer;
 
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: updateArray, longitudeClient: longitudeServer, latitudeClient: latitudeServer })
-
+  res.render('index', {
+    taglist: updateArray,
+    longitudeClient: longitudeServer,
+    latitudeClient: latitudeServer
+  })
 });
 
 
