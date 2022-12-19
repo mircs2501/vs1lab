@@ -27,34 +27,43 @@ console.log("The geoTagging script is going to start...");
 // ... your code here ...
 
 function updateLocation() {
-    latitudeInput = document.getElementById("tag-latitude")
-    longitudeInput = document.getElementById("tag-longitude")
-    if (latitudeInput != null && longitudeInput != null) {
-        LocationHelper.findLocation(currentLocationDetails);
-    }
+    LocationHelper.findLocation(currentLocationDetails);
 
 }
+
+let latitude = '';
+let longitude = '';
+
 
 // Callback function
 function currentLocationDetails(locationHelper) {
     //Updating Form Elements
-    latitudeInput = document.getElementById("tag-latitude")
-    longitudeInput = document.getElementById("tag-longitude")
+    
+    latitude = document.getElementById("tag-latitude").value
+    longitude = document.getElementById("tag-longitude").value
     hiddenLatitudeInput = document.getElementById("discoveryHiddenLatitude")
     hiddenLongitudeInput = document.getElementById("discoveryHiddenLongitude")
 
-    latitudeInput.value = hiddenLatitudeInput.value = locationHelper.latitude
-    longitudeInput.value = hiddenLongitudeInput.value = locationHelper.longitude
+    latitude = hiddenLatitudeInput.value = locationHelper.latitude
+    longitude = hiddenLongitudeInput.value = locationHelper.longitude
 
-    //Updating mapView Element
-    testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
-    let mapURL = testManager.getMapUrl(locationHelper.latitude, locationHelper.longitude, JSON.parse(document.getElementById('mapView').getAttribute('data-geotags')));
-    imageElement = document.getElementById("mapView")
-    imageElement.src = mapURL;
+ 
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
+    latitude = document.getElementById('tag-latitude')
+    longitude = document.getElementById('tag-longitude')
+
+
+    if(latitude==='' && longitude==='') {
+        updateLocation();
+    }
     // alert("Please change the script 'geotagging.js'");
-    updateLocation();
+
+      //Updating mapView Element
+      testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
+      let mapURL = testManager.getMapUrl(latitude.value, longitude.value, JSON.parse(document.getElementById('mapView').getAttribute('data-geotags')));
+      imageElement = document.getElementById("mapView")
+      imageElement.src = mapURL;
 });

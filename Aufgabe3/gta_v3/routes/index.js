@@ -30,7 +30,7 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
-
+const GeoTagExamples = require('../models/geotag-examples');
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -43,14 +43,18 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 const storage = new GeoTagStore();
+GeoTagExamples.tagList.forEach(element => {
+  var temp = new GeoTag(element[0], element[3], element[1], element[2]);
+  storage.addGeoTag(temp);
+});;
 var updateArray = storage.getArray();
+var longitudeServer;
+var latitudeServer;
 
-
-var test1 = new GeoTag("Test1", "#test1", 49.01700, 8.392)
-storage.addGeoTag(test1);
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: updateArray })
+  res.render('index', { taglist: updateArray, longitudeClient: longitudeServer, latitudeClient: latitudeServer })
+
 });
 
 
@@ -73,6 +77,8 @@ router.get('/', (req, res) => {
 router.post('/tagging', function (req, res) {
   var newGeoTag = new GeoTag(req.body.tagName, req.body.tagHashtag, req.body.tagLatitude, req.body.tagLongitude);
   storage.addGeoTag(newGeoTag);
+  latitudeServer = req.body.tagLatitude;
+  longitudeServer = req.body.tagLongitude;
   updateArray = storage.getNearbyGeoTags(req.body.tagLatitude, req.body.tagLongitude, 10);
   res.redirect('/');
 });

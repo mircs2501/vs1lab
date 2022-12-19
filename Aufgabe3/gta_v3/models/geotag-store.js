@@ -69,6 +69,9 @@ class InMemoryGeoTagStore {
 
     searchNearbyGeoTags(latitude, longitude, radius, keyword) {
         var leftoverTags = this.getNearbyGeoTags(latitude, longitude, radius);
+        if (keyword == '') {
+            return leftoverTags
+        }
 
         var returnTags = []
         leftoverTags.forEach(element => {

@@ -31,12 +31,12 @@
                     <legend>Add a new GeoTag</legend>
                     <label class="input-tag">
                         Latitude:
-                        <input id="tag-latitude" type="number" name="tagLatitude" value="48.9631045" readonly="readonly"
+                        <input id="tag-latitude" type="number" name="tagLatitude" value="<%= latitudeClient %>" readonly="readonly"
                             input>
                     </label>
                     <label class="input-tag">
                         Longitude:
-                        <input id="tag-longitude" type="number" name="tagLongitude" value="8.8098522"
+                        <input id="tag-longitude" type="number" name="tagLongitude" value="<%= longitudeClient %>"
                             readonly="readonly" input>
                     </label class="input-tag">
 
@@ -76,11 +76,11 @@
                     </label>
 
                     <label>
-                        <input id="discoveryHiddenLatitude" type="hidden" name="discoveryHiddenLatitude">
+                        <input id="discoveryHiddenLatitude" type="hidden" name="discoveryHiddenLatitude" value="<%= latitudeClient %>">
                     </label>
 
                     <label>
-                        <input id="discoveryHiddenLongitude" type="hidden" name="discoveryHiddenLongitude">
+                        <input id="discoveryHiddenLongitude" type="hidden" name="discoveryHiddenLongitude" value="<%= longitudeClient %>">
                     </label>
 
                     <label>
