@@ -38,9 +38,40 @@ const GeoTagStore = require('../models/geotag-store');
  * As response, the ejs-template is rendered without geotag objects.
  */
 
-router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+ const storage = new GeoTagStore();
+ GeoTagExamples.tagList.forEach(element => {
+   var temp = new GeoTag(element[0], element[3], element[1], element[2]);
+   storage.addGeoTag(temp);
+ });;
+ var updateArray = storage.getArray();
+ var longitudeServer;
+ var latitudeServer;
+ 
+ 
+ router.get('/', (req, res) => {
+   res.render('index', {
+     taglist: updateArray,
+     longitudeClient: longitudeServer,
+     latitudeClient: latitudeServer
+   })
+ });
+ 
+ router.post('/tagging', function (req, res) {
+  var newGeoTag = new GeoTag(req.body.tagName, req.body.tagHashtag, req.body.tagLatitude, req.body.tagLongitude);
+  storage.addGeoTag(newGeoTag);
+  latitudeServer = req.body.tagLatitude;
+  longitudeServer = req.body.tagLongitude;
+  updateArray = storage.getNearbyGeoTags(req.body.tagLatitude, req.body.tagLongitude, 10);
+  res.redirect('/');
 });
+
+
+router.post('/discovery', function (req, res) {
+  updateArray = storage.searchNearbyGeoTags(req.body.discoveryHiddenLatitude, req.body.discoveryHiddenLongitude, 10, req.body.discoverySearch);
+  res.redirect('/');
+});
+
+module.exports = router;
 
 // API routes (A4)
 
