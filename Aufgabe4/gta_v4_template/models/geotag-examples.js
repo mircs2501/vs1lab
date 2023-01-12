@@ -31,7 +31,7 @@ class GeoTagExamples {
         ];
     }
 }
-const GeoTag = require('./geoTag');
+const GeoTag = require('./geotag');
 //const InMemoryGeoTagStore = require('./geoTag')
 
 module.exports = GeoTagExamples;
