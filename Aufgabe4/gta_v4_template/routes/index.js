@@ -39,25 +39,25 @@ const GeoTagExamples = require('../models/geotag-examples');
  * As response, the ejs-template is rendered without geotag objects.
  */
 
- const storage = new GeoTagStore();
- GeoTagExamples.tagList.forEach(element => {
-   var temp = new GeoTag(element[0], element[3], element[1], element[2]);
-   storage.addGeoTag(temp);
- });;
- var updateArray = storage.getArray();
- var longitudeServer;
- var latitudeServer;
- 
- 
- router.get('/', (req, res) => {
-   res.render('index', {
-     taglist: updateArray,
-     longitudeClient: longitudeServer,
-     latitudeClient: latitudeServer
-   })
- });
- 
- router.post('/tagging', function (req, res) {
+const storage = new GeoTagStore();
+GeoTagExamples.tagList.forEach(element => {
+  var temp = new GeoTag(element[0], element[3], element[1], element[2]);
+  storage.addGeoTag(temp);
+});;
+var updateArray = storage.getArray();
+var longitudeServer;
+var latitudeServer;
+
+
+router.get('/', (req, res) => {
+  res.render('index', {
+    taglist: updateArray,
+    longitudeClient: longitudeServer,
+    latitudeClient: latitudeServer
+  })
+});
+
+router.post('/tagging', function (req, res) {
   var newGeoTag = new GeoTag(req.body.tagName, req.body.tagHashtag, req.body.tagLatitude, req.body.tagLongitude);
   storage.addGeoTag(newGeoTag);
   latitudeServer = req.body.tagLatitude;
@@ -90,6 +90,16 @@ module.exports = router;
 
 // TODO: ... your code here ...
 
+router.get('/api/geotags', (req, res) => {
+  if (req.body.discoverySearch != null &&
+    req.body.discoveryHiddenLatitude != null &&
+    req.body.discoveryHiddenLongitude != null) {
+    updateArray = storage.searchNearbyGeoTags(req.body.discoveryHiddenLatitude, req.body.discoveryHiddenLongitude, 10, req.body.discoverySearch);
+  }
+  res.status(200).send({
+    geoTagsArray: updateArray
+  })
+})
 
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
@@ -103,7 +113,17 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
+router.post('/api/geotags', (req, res) => {
+  let geoTag = req.body;
 
+  res.set('Location', '/api/geotags')
+  res.status(201).send({
+    name: geoTag.name,
+    hashtag: geoTag.hashtag,
+    latitude: geoTag.latitude,
+    longitude: geoTag.longitude,
+  })
+})
 
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
@@ -117,6 +137,11 @@ module.exports = router;
 
 // TODO: ... your code here ...
 
+router.get('/api/geotags/:id', (req, res) => {
+  res.status(200).send({
+    id: req.params.id
+  })
+})
 
 /**
  * Route '/api/geotags/:id' for HTTP 'PUT' requests.
