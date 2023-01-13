@@ -41,7 +41,7 @@ const GeoTagExamples = require('../models/geotag-examples');
 
 const storage = new GeoTagStore();
 GeoTagExamples.tagList.forEach(element => {
-  var temp = new GeoTag(element[0], element[3], element[1], element[2]);
+  var temp = new GeoTag(element[0], element[3], element[1], element[2], storage.idCounter);
   storage.addGeoTag(temp);
 });;
 var updateArray = storage.getArray();
@@ -115,13 +115,17 @@ router.get('/api/geotags', (req, res) => {
 // TODO: ... your code here ...
 router.post('/api/geotags', (req, res) => {
   let geoTag = req.body;
+  let newId = storage.idCounter
 
-  res.set('Location', '/api/geotags')
+  storage.addGeoTag(geoTag.name, geoTag.hashtag, geoTag.latitude, geoTag.longitude, newId)
+  res.set('Location', '/api/geotags/' + newId)
+
   res.status(201).send({
     name: geoTag.name,
     hashtag: geoTag.hashtag,
     latitude: geoTag.latitude,
     longitude: geoTag.longitude,
+    id: newId,
   })
 })
 
@@ -138,8 +142,18 @@ router.post('/api/geotags', (req, res) => {
 // TODO: ... your code here ...
 
 router.get('/api/geotags/:id', (req, res) => {
+  let geoTag;
+  storage.getArray().forEach(element => {
+    if (element.id == (req.params.id)) {
+      geoTag = element;
+    }
+  })
   res.status(200).send({
-    id: req.params.id
+    name: geoTag.name,
+    hashtag: geoTag.hashtag,
+    latitude: geoTag.latitude,
+    longitude: geoTag.longitude,
+    id: geoTag.id
   })
 })
 
@@ -159,6 +173,27 @@ router.get('/api/geotags/:id', (req, res) => {
 
 // TODO: ... your code here ...
 
+router.put('/api/geotags/:id', (req, res) => {
+  let requestedGeoTag = req.body;
+  let newGeoTag
+  storage.getArray().forEach(element => {
+    if (element.id == (req.params.id)) {
+      element.name = requestedGeoTag.name;
+      element.hashtag = requestedGeoTag.hashtag;
+      element.latitude = requestedGeoTag.latitude;
+      element.longitude = requestedGeoTag.longitude;
+      newGeoTag = element;
+    }
+  })
+  res.status(200).send({
+    name: newGeoTag.name,
+    hashtag: newGeoTag.hashtag,
+    latitude: newGeoTag.latitude,
+    longitude: newGeoTag.longitude,
+    id: newGeoTag.id
+  })
+})
+
 
 /**
  * Route '/api/geotags/:id' for HTTP 'DELETE' requests.
@@ -172,5 +207,22 @@ router.get('/api/geotags/:id', (req, res) => {
  */
 
 // TODO: ... your code here ...
+
+router.delete('/api/geotags/:id', (req, res) => {
+  let removedGeoTag
+  storage.getArray().forEach(element => {
+    if (element.id == (req.params.id)) {
+      removedGeoTag = element
+      storage.removeGeoTagById(req.params.id)
+    }
+  })
+  res.status(200).send({
+    name: removedGeoTag.name,
+    hashtag: removedGeoTag.hashtag,
+    latitude: removedGeoTag.latitude,
+    longitude: removedGeoTag.longitude,
+    id: removedGeoTag.id
+  })
+})
 
 module.exports = router;

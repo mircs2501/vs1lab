@@ -71,3 +71,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+document.getElementById("tag-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+
+    var formData = new FormData(this);
+    fetch('/api/geotags', {
+        method: "POST",
+        body: { formData }
+    })
+        .then(response => {
+            // handle the response here
+        })
+});
+
+

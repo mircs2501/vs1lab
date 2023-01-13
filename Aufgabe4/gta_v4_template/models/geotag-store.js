@@ -26,19 +26,21 @@ const GeoTag = require("./geotag");
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
 class InMemoryGeoTagStore {
-
+    idCounter;
     #geotagsArray = [];
 
     constructor() {
+        this.idCounter = 0
     }
 
     addGeoTag(newGeotag) {
         this.#geotagsArray.push(newGeotag);
+        this.idCounter++;
     }
 
     removeGeoTag(name) {
         var index;
-        for (i = 0; i < this.#geotagsArray.length; i++) {
+        for (let i = 0; i < this.#geotagsArray.length; i++) {
             if (name == this.#geotagsArray[i].name) {
                 index = i
             }
@@ -46,7 +48,22 @@ class InMemoryGeoTagStore {
         if (index != undefined) {
             this.#geotagsArray.splice(index, 1);
         }
+
     }
+
+    removeGeoTagById(id) {
+        var index;
+        for (let i = 0; i < this.#geotagsArray.length; i++) {
+            if (id == this.#geotagsArray[i].id) {
+                index = i
+            }
+        }
+        if (index != undefined) {
+            this.#geotagsArray.splice(index, 1);
+        }
+
+    }
+
 
     getNearbyGeoTags(latitude, longitude, radius) {
         var returnTags = [];
