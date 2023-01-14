@@ -92,6 +92,16 @@ const postGeotags = async () => {
     updateDiscovery();
 }
 
+document.getElementById("discoveryFilterForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const response = await fetch('/api/geotags?discoverySearch='+document.getElementById("discoverySearch").value+'&discoveryHiddenLatitude='+document.getElementById("discoveryHiddenLatitude").value+'&discoveryHiddenLongitude='+document.getElementById("discoveryHiddenLongitude").value, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    console.log(data);
+    updateDiscovery();
+  });
+
 const updateDiscovery = async () => {
     let response = await fetch('/api/geotags', {
         method: "GET",
@@ -112,6 +122,11 @@ const updateDiscovery = async () => {
 document.getElementById("tag-form").addEventListener("submit", function (event) {
     event.preventDefault();
     postGeotags();
+});
+
+document.getElementById("tag-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    getGeotags();
 });
 
 

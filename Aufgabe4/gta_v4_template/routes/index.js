@@ -91,10 +91,10 @@ module.exports = router;
 // TODO: ... your code here ...
 
 router.get('/api/geotags', (req, res) => {
-  if (req.body.discoverySearch != null &&
-    req.body.discoveryHiddenLatitude != null &&
-    req.body.discoveryHiddenLongitude != null) {
-    updateArray = storage.searchNearbyGeoTags(req.body.discoveryHiddenLatitude, req.body.discoveryHiddenLongitude, 10, req.body.discoverySearch);
+  if (req.query.discoverySearch != null &&
+    req.query.discoveryHiddenLatitude != null &&
+    req.query.discoveryHiddenLongitude != null) {
+    updateArray = storage.searchNearbyGeoTags(req.query.discoveryHiddenLatitude, req.query.discoveryHiddenLongitude, 10, req.query.discoverySearch);
   }
   res.status(200).send(JSON.stringify(updateArray))
 })
@@ -174,6 +174,8 @@ router.get('/api/geotags/:id', (req, res) => {
   storage.getArray().forEach(element => {
     if (element.id == (req.params.id)) {
       geoTag = element;
+      url += '?' + ( new URLSearchParams( params ) ).toString();
+
     }
   })
   res.status(200).send(JSON.stringify(geoTag));
