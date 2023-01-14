@@ -26,6 +26,8 @@ console.log("The geoTagging script is going to start...");
  */
 // ... your code here ...
 
+
+
 function updateLocation() {
     LocationHelper.findLocation(currentLocationDetails);
 }
@@ -71,9 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-document.getElementById("tag-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    fetch('/api/geotags', {
+const postGeotags = async () => {
+    let response = await fetch('/api/geotags', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -84,11 +85,52 @@ document.getElementById("tag-form").addEventListener("submit", function (event) 
             latitude: document.getElementById("tag-latitude").value,
             longitude: document.getElementById("tag-longitude").value
         })
-    })
-        .then(response => {
-            return response.json()
-        })
-        .then(data => console.log(data))
+    });
+    //let data = await response.json();
+    //console.log(data);
+    createMap(document.getElementById("tag-latitude").value, document.getElementById("tag-longitude").value)
+    updateDiscovery();
+}
+
+const updateDiscovery = async () => {
+    let response = await fetch('/api/geotags', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    let data = await response.json()
+    let newContent = '';
+    data.forEach(function (gtag) {
+        newContent += '<li>' + gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.hashtag + '</li>';
+    });
+    //Aktualisiert Seite
+    $('#discoveryResults').html(newContent);
+}
+
+
+document.getElementById("tag-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    postGeotags();
 });
 
 
+
+/*
+fetch('/api/geotags', {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        name: document.getElementById("tag-name").value,
+        hashtag: document.getElementById("tag-hashtag").value,
+        latitude: document.getElementById("tag-latitude").value,
+        longitude: document.getElementById("tag-longitude").value
+    })
+})
+    .then(response => {
+        return response.json()
+    })
+    .then(data => console.log(data))
+*/

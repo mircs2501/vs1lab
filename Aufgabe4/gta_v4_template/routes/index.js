@@ -96,9 +96,7 @@ router.get('/api/geotags', (req, res) => {
     req.body.discoveryHiddenLongitude != null) {
     updateArray = storage.searchNearbyGeoTags(req.body.discoveryHiddenLatitude, req.body.discoveryHiddenLongitude, 10, req.body.discoverySearch);
   }
-  res.status(200).send({
-    geoTagsArray: updateArray
-  })
+  res.status(200).send(JSON.stringify(updateArray))
 })
 
 /**
@@ -113,7 +111,9 @@ router.get('/api/geotags', (req, res) => {
  */
 
 // TODO: ... your code here ...
-router.post('/api/geotags', (req, res) => {
+
+
+/* router.post('/api/geotags', (req, res) => {
   let geoTag = req.body;
   let newId = storage.idCounter
 
@@ -127,7 +127,19 @@ router.post('/api/geotags', (req, res) => {
     longitude: geoTag.longitude,
     id: newId,
   })
+}) */
+
+router.post('/api/geotags', (req, res) => {
+  let geoTag = req.body;
+  let newId = storage.idCounter;
+  geoTag.id = newId;
+
+  storage.addGeoTag(geoTag)
+  res.set('Location', '/api/geotags/' + newId)
+
+  res.status(201).send(JSON.stringify(geoTag))
 })
+
 
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
@@ -141,7 +153,7 @@ router.post('/api/geotags', (req, res) => {
 
 // TODO: ... your code here ...
 
-router.get('/api/geotags/:id', (req, res) => {
+/* router.get('/api/geotags/:id', (req, res) => {
   let geoTag;
   storage.getArray().forEach(element => {
     if (element.id == (req.params.id)) {
@@ -155,6 +167,16 @@ router.get('/api/geotags/:id', (req, res) => {
     longitude: geoTag.longitude,
     id: geoTag.id
   })
+}) */
+
+router.get('/api/geotags/:id', (req, res) => {
+  let geoTag;
+  storage.getArray().forEach(element => {
+    if (element.id == (req.params.id)) {
+      geoTag = element;
+    }
+  })
+  res.status(200).send(JSON.stringify(geoTag));
 })
 
 /**
@@ -172,10 +194,10 @@ router.get('/api/geotags/:id', (req, res) => {
  */
 
 // TODO: ... your code here ...
-
+/* 
 router.put('/api/geotags/:id', (req, res) => {
   let requestedGeoTag = req.body;
-  let newGeoTag
+  let newGeoTag;
   storage.getArray().forEach(element => {
     if (element.id == (req.params.id)) {
       element.name = requestedGeoTag.name;
@@ -192,7 +214,23 @@ router.put('/api/geotags/:id', (req, res) => {
     longitude: newGeoTag.longitude,
     id: newGeoTag.id
   })
+}) */
+
+router.put('/api/geotags/:id', (req, res) => {
+  let requestedGeoTag = req.body;
+  let newGeoTag;
+  storage.getArray().forEach(element => {
+    if (element.id == (req.params.id)) {
+      element.name = requestedGeoTag.name;
+      element.hashtag = requestedGeoTag.hashtag;
+      element.latitude = requestedGeoTag.latitude;
+      element.longitude = requestedGeoTag.longitude;
+      newGeoTag = element;
+    }
+  })
+  res.status(200).send(JSON.stringify(newGeoTag));
 })
+
 
 
 /**
@@ -207,7 +245,7 @@ router.put('/api/geotags/:id', (req, res) => {
  */
 
 // TODO: ... your code here ...
-
+/* 
 router.delete('/api/geotags/:id', (req, res) => {
   let removedGeoTag
   storage.getArray().forEach(element => {
@@ -223,6 +261,19 @@ router.delete('/api/geotags/:id', (req, res) => {
     longitude: removedGeoTag.longitude,
     id: removedGeoTag.id
   })
+})
+ */
+
+
+router.delete('/api/geotags/:id', (req, res) => {
+  let removedGeoTag;
+  storage.getArray().forEach(element => {
+    if (element.id == (req.params.id)) {
+      removedGeoTag = element
+      storage.removeGeoTagById(req.params.id)
+    }
+  })
+  res.status(200).send(JSON.stringify(removedGeoTag))
 })
 
 module.exports = router;
