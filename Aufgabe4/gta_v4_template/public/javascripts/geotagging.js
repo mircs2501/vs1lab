@@ -60,6 +60,15 @@ function assignValues(lat, lon) {
     hiddenLongitudeInput.value = lon;
 }
 
+const generateNewMap = async () => {
+    const response = await fetch('/coordinates', {
+        method: 'GET',
+    });
+    const data = await response.json();
+    console.log(data)
+    createMap(data.latitudeClient, data.longitudeClient)
+}
+
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     // alert("Please change the script 'geotagging.js'");
@@ -81,6 +90,7 @@ const postGeotags = async () => {
         headers: {
             'Content-Type': 'application/json'
         },
+
         body: JSON.stringify({
             name: document.getElementById("tag-name").value,
             hashtag: document.getElementById("tag-hashtag").value,
@@ -90,8 +100,8 @@ const postGeotags = async () => {
     });
     //let data = await response.json();
     //console.log(data);
-    createMap(document.getElementById("tag-latitude").value, document.getElementById("tag-longitude").value)
     updateDiscovery();
+    generateNewMap();
 }
 
 document.getElementById("discoveryFilterForm").addEventListener("submit", async function (event) {
@@ -100,8 +110,12 @@ document.getElementById("discoveryFilterForm").addEventListener("submit", async 
         method: 'GET',
     });
     const data = await response.json();
-    updateDiscovery(data);
+    let spanNum = document.getElementById("pagination-num");
+    spanNum.innerText = 1;
+    updateDiscovery();
+    generateNewMap();
 });
+
 
 const updateDiscovery = async () => {
     /*   let response = await fetch('/api/geotags', {
@@ -119,9 +133,15 @@ const updateDiscovery = async () => {
       });
       //Aktualisiert Seite */
 
+    const response = await fetch('/coordinates', {
+        method: 'GET',
+    });
+    const data = await response.json();
+
     let fiveElementArray;
+
     getPageArray().then(returnData => {
-        console.log(returnData.arrayGeotags)
+        console.log(returnData)
         maxPageNum = returnData.maxPageNumber
         fiveElementArray = returnData.arrayGeotags
         let newContent = '';
@@ -130,11 +150,10 @@ const updateDiscovery = async () => {
         });
         $('#discoveryResults').html(newContent);
     })
-
 }
 
 const getPageArray = async (pageNum) => {
-    let response = await fetch('/api/pagination/' + document.getElementById('pagination-num').innerHTML, {
+    let response = await fetch('/api/pagination/' + document.getElementById('pagination-num').innerHTML + '?discoverySearch=' + document.getElementById("discoverySearch").value + '&discoveryHiddenLatitude=' + document.getElementById("discoveryHiddenLatitude").value + '&discoveryHiddenLongitude=' + document.getElementById("discoveryHiddenLongitude").value, {
         method: 'GET',
     });
     const data = await response.json();
@@ -157,6 +176,7 @@ document.getElementById("next-button").addEventListener("click", function (event
             console.log(returnData)
         }) */
         updateDiscovery()
+        generateNewMap();
     }
 });
 
@@ -169,6 +189,7 @@ document.getElementById("prev-button").addEventListener("click", function (event
               console.log(returnData)
           }) */
         updateDiscovery()
+        generateNewMap();
     }
 });
 

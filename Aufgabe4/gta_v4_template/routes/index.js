@@ -92,6 +92,14 @@ module.exports = router;
 
 // TODO: ... your code here ...
 
+router.get('/coordinates', (req, res) => {
+  res.status(200).send({
+    latitudeClient: latitudeServer,
+    longitudeClient: longitudeServer
+  })
+});
+
+
 router.get('/api/geotags', (req, res) => {
   if (req.query.discoverySearch != null &&
     req.query.discoveryHiddenLatitude != null &&
@@ -102,12 +110,19 @@ router.get('/api/geotags', (req, res) => {
 })
 
 router.get('/api/pagination/:id', (req, res) => {
+  if (req.query.discoverySearch != "" ||
+    req.query.discoveryHiddenLatitude != "" ||
+    req.query.discoveryHiddenLongitude != "") {
+    storage.updatedArray = storage.searchNearbyGeoTags(req.query.discoveryHiddenLatitude, req.query.discoveryHiddenLongitude, 10, req.query.discoverySearch);
+  } else {
+    storage.setUpdatedArray(storage.getArray());
+  }
   // let page = req.query.id;
   pageNumber = req.params.id
   res.status(200).send(JSON.stringify({
     arrayGeotags: storage.pagination(pageNumber),
     pageNumber: pageNumber,
-    maxPageNumber: Math.ceil(storage.getArray().length / 5)
+    maxPageNumber: Math.ceil(storage.updatedArray.length / 5),
   }))
 })
 /**
