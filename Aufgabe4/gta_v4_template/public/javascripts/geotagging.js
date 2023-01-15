@@ -124,28 +124,3 @@ document.getElementById("tag-form").addEventListener("submit", function (event) 
     postGeotags();
 });
 
-document.getElementById("tag-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    getGeotags();
-});
-
-
-
-/*
-fetch('/api/geotags', {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        name: document.getElementById("tag-name").value,
-        hashtag: document.getElementById("tag-hashtag").value,
-        latitude: document.getElementById("tag-latitude").value,
-        longitude: document.getElementById("tag-longitude").value
-    })
-})
-    .then(response => {
-        return response.json()
-    })
-    .then(data => console.log(data))
-*/
