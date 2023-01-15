@@ -88,6 +88,7 @@
                     <label>
                         <input id="discoverySubmit" type="submit" name="tag-submit" value="Search" input>
                     </label>
+
                 </fieldset>
                 <!-- ... your code here ... -->
 
@@ -95,6 +96,7 @@
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper">
+
                 <div class="discovery__taglist col-4">
                     <ul class="discovery__results" id="discoveryResults">
                         <% if (taglist !==undefined) taglist.forEach(function(gtag) { %>
@@ -103,6 +105,19 @@
                             </li>
                             <% }); %>
                     </ul>
+                    <nav class="pagination-container">
+                        <button class="pagination-button" id="prev-button" title="Previous page">
+                          &lt;
+                        </button>
+                    
+                        <div id="pagination-numbers">
+                    
+                        </div>
+                    
+                        <button class="pagination-button" id="next-button" title="Next page">
+                          &gt;
+                        </button>
+                      </nav>
                 </div>
 
                 <div class="discovery__map col-8">
