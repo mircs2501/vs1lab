@@ -181,6 +181,8 @@ router.get('/api/geotags/:id', (req, res) => {
   res.status(200).send(JSON.stringify(geoTag));
 })
 
+
+
 /**
  * Route '/api/geotags/:id' for HTTP 'PUT' requests.
  * (http://expressjs.com/de/4x/api.html#app.put.method)
@@ -277,5 +279,7 @@ router.delete('/api/geotags/:id', (req, res) => {
   })
   res.status(200).send(JSON.stringify(removedGeoTag))
 })
+
+
 
 module.exports = router;
