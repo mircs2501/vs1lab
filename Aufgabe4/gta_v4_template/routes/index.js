@@ -48,6 +48,8 @@ var updateArray = storage.getArray();
 var longitudeServer;
 var latitudeServer;
 
+let pageNumber = 1;
+let maxPageNumber = Math.ceil(storage.getArray().length / 5)
 
 router.get('/', (req, res) => {
   res.render('index', {
@@ -99,10 +101,14 @@ router.get('/api/geotags', (req, res) => {
   res.status(200).send(JSON.stringify(updateArray))
 })
 
-router.get('/api/pagination', (req, res)=> {
-  let page = req.body.page;
-
-  res.status(200).send(JSON.stringify(storage.pagination(page)))
+router.get('/api/pagination/:id', (req, res) => {
+  // let page = req.query.id;
+  pageNumber = req.params.id
+  res.status(200).send(JSON.stringify({
+    arrayGeotags: storage.pagination(pageNumber),
+    pageNumber: pageNumber,
+    maxPageNumber: Math.ceil(storage.getArray().length / 5)
+  }))
 })
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
@@ -179,7 +185,7 @@ router.get('/api/geotags/:id', (req, res) => {
   storage.getArray().forEach(element => {
     if (element.id == (req.params.id)) {
       geoTag = element;
-      url += '?' + ( new URLSearchParams( params ) ).toString();
+      url += '?' + (new URLSearchParams(params)).toString();
 
     }
   })

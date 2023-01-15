@@ -26,7 +26,8 @@ console.log("The geoTagging script is going to start...");
  */
 // ... your code here ...
 
-
+let currentPageNum;
+let maxPageNum;
 
 function updateLocation() {
     LocationHelper.findLocation(currentLocationDetails);
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         assignValues(latitude, longitude)
         createMap(latitude, longitude)
     }
+    updateDiscovery()
 });
 
 const postGeotags = async () => {
@@ -92,35 +94,84 @@ const postGeotags = async () => {
     updateDiscovery();
 }
 
-document.getElementById("discoveryFilterForm").addEventListener("submit", async function(event) {
+document.getElementById("discoveryFilterForm").addEventListener("submit", async function (event) {
     event.preventDefault();
-    const response = await fetch('/api/geotags?discoverySearch='+document.getElementById("discoverySearch").value+'&discoveryHiddenLatitude='+document.getElementById("discoveryHiddenLatitude").value+'&discoveryHiddenLongitude='+document.getElementById("discoveryHiddenLongitude").value, {
-      method: 'GET',
+    const response = await fetch('/api/geotags?discoverySearch=' + document.getElementById("discoverySearch").value + '&discoveryHiddenLatitude=' + document.getElementById("discoveryHiddenLatitude").value + '&discoveryHiddenLongitude=' + document.getElementById("discoveryHiddenLongitude").value, {
+        method: 'GET',
     });
     const data = await response.json();
-    console.log(data);
-    updateDiscovery();
-  });
+    updateDiscovery(data);
+});
 
 const updateDiscovery = async () => {
-    let response = await fetch('/api/geotags', {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    });
-    let data = await response.json()
-    let newContent = '';
-    data.forEach(function (gtag) {
-        newContent += '<li>' + gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.hashtag + '</li>';
-    });
-    //Aktualisiert Seite
-    $('#discoveryResults').html(newContent);
+    /*   let response = await fetch('/api/geotags', {
+          method: "GET",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+      });
+      let data = await response.json()
+      let newContent = '';
+  
+  
+      data.forEach(function (gtag) {
+          newContent += '<li>' + gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.hashtag + '</li>';
+      });
+      //Aktualisiert Seite */
+
+    let fiveElementArray;
+    getPageArray().then(returnData => {
+        console.log(returnData.arrayGeotags)
+        maxPageNum = returnData.maxPageNumber
+        fiveElementArray = returnData.arrayGeotags
+        let newContent = '';
+        fiveElementArray.forEach(function (gtag) {
+            newContent += '<li>' + gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.hashtag + '</li>';
+        });
+        $('#discoveryResults').html(newContent);
+    })
+
 }
+
+const getPageArray = async (pageNum) => {
+    let response = await fetch('/api/pagination/' + document.getElementById('pagination-num').innerHTML, {
+        method: 'GET',
+    });
+    const data = await response.json();
+    return data
+}
+
 
 
 document.getElementById("tag-form").addEventListener("submit", function (event) {
     event.preventDefault();
     postGeotags();
 });
+
+document.getElementById("next-button").addEventListener("click", function (event) {
+    let spanNum = document.getElementById("pagination-num");
+
+    if (parseInt(spanNum.innerText) < maxPageNum) {
+        spanNum.innerText = parseInt(spanNum.innerText) + 1;
+        /* getPageArray().then(returnData => {
+            console.log(returnData)
+        }) */
+        updateDiscovery()
+    }
+});
+
+document.getElementById("prev-button").addEventListener("click", function (event) {
+    let spanNum = document.getElementById("pagination-num");
+
+    if (parseInt(spanNum.innerText) > 1) {
+        spanNum.innerText = parseInt(spanNum.innerText) - 1;
+        /*   getPageArray().then(returnData => {
+              console.log(returnData)
+          }) */
+        updateDiscovery()
+    }
+});
+
+
+
 

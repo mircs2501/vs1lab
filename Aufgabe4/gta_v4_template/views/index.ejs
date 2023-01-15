@@ -62,6 +62,7 @@
 
         </section>
 
+
         <section class="main__discovery discovery col-9">
             <h2 class="discovery__title">Discovery</h2>
 
@@ -96,7 +97,6 @@
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper">
-
                 <div class="discovery__taglist col-4">
                     <ul class="discovery__results" id="discoveryResults">
                         <% if (taglist !==undefined) taglist.forEach(function(gtag) { %>
@@ -107,17 +107,17 @@
                     </ul>
                     <nav class="pagination-container">
                         <button class="pagination-button" id="prev-button" title="Previous page">
-                          &lt;
+                            &lt;
                         </button>
-                    
+
                         <div id="pagination-numbers">
-                    
+                            <span id="pagination-num">1</span>
                         </div>
-                    
+
                         <button class="pagination-button" id="next-button" title="Next page">
-                          &gt;
+                            &gt;
                         </button>
-                      </nav>
+                    </nav>
                 </div>
 
                 <div class="discovery__map col-8">
