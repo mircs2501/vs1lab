@@ -99,6 +99,11 @@ router.get('/api/geotags', (req, res) => {
   res.status(200).send(JSON.stringify(updateArray))
 })
 
+router.get('/api/pagination', (req, res)=> {
+  let page = req.body.page;
+
+  res.status(200).send(JSON.stringify(storage.pagination(page)))
+})
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
  * (http://expressjs.com/de/4x/api.html#app.post.method)

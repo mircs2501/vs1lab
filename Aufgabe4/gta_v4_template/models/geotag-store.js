@@ -28,6 +28,26 @@ const GeoTag = require("./geotag");
 class InMemoryGeoTagStore {
     idCounter;
     #geotagsArray = [];
+    
+    pageIDs = [pageElements];
+    pageElements = 5;
+
+    pagination(page){
+        
+        if(page > 0) {
+            pageIndex = (page-1)*pageElements;
+            for( ; pageIndex%pageElements <=pageElements-1;pageIndex++) {
+                if(typeof this.#geotagsArray[pageIndex]!='undefined'){
+                    pageIDs [pageIndex%pageElements]= this.#geotagsArray[pageIndex];
+                }
+               
+            }
+
+        }else {
+            page = 1;
+            this.pagination();
+    }
+ } 
 
     constructor() {
         this.idCounter = 0
@@ -104,5 +124,6 @@ class InMemoryGeoTagStore {
         return returnTags
     }
 }
+
 
 module.exports = InMemoryGeoTagStore
