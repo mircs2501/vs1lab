@@ -1,5 +1,7 @@
 // File origin: VS1LAB A2
 
+//const GeoTag = require("../../models/geotag");
+
 /* eslint-disable no-unused-vars */
 
 // This script is executed when the browser loads index.html.
@@ -28,6 +30,7 @@ console.log("The geoTagging script is going to start...");
 
 let currentPageNum;
 let maxPageNum;
+let fiveElements;
 
 function updateLocation() {
     LocationHelper.findLocation(currentLocationDetails);
@@ -41,12 +44,27 @@ function currentLocationDetails(locationHelper) {
     //Updating mapView Element
 }
 
-function createMap(lat, lon) {
+function createMap(lat, lon, array) {
+
     testManager = new MapManager('1HPBmokEdBAmuzdaqc3u4K7vItqdUq1a');
-    let mapURL = testManager.getMapUrl(lat, lon, JSON.parse(document.getElementById('mapView').getAttribute('data-geotags')));
+    let mapURL = testManager.getMapUrl(lat, lon, array);
     imageElement = document.getElementById("mapView")
     imageElement.src = mapURL;
 }
+
+function updateMap(array) {
+    if (array) {
+        console.log(array)
+        createMap(document.getElementById("tag-latitude").value, document.getElementById("tag-longitude").value, array.map((geotag) => {
+            return {
+                name: geotag.name,
+                latitude: geotag.latitude,
+                longitude: geotag.longitude
+            }
+        }))
+    }
+}
+
 
 function assignValues(lat, lon) {
     latitudeInput = document.getElementById("tag-latitude")
@@ -60,13 +78,12 @@ function assignValues(lat, lon) {
     hiddenLongitudeInput.value = lon;
 }
 
-const generateNewMap = async () => {
-    const response = await fetch('/coordinates', {
-        method: 'GET',
-    });
-    const data = await response.json();
-    console.log(data)
-    createMap(data.latitudeClient, data.longitudeClient)
+const generateNewMap = async (tags) => {
+    /*   const response = await fetch('/coordinates', {
+          method: 'GET',
+      });
+      const data = await response.json(); */
+    //createMap(data.latitudeClient, data.longitudeClient, tags)
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
@@ -101,7 +118,6 @@ const postGeotags = async () => {
     //let data = await response.json();
     //console.log(data);
     updateDiscovery();
-    generateNewMap();
 }
 
 document.getElementById("discoveryFilterForm").addEventListener("submit", async function (event) {
@@ -109,11 +125,12 @@ document.getElementById("discoveryFilterForm").addEventListener("submit", async 
     const response = await fetch('/api/geotags?discoverySearch=' + document.getElementById("discoverySearch").value + '&discoveryHiddenLatitude=' + document.getElementById("discoveryHiddenLatitude").value + '&discoveryHiddenLongitude=' + document.getElementById("discoveryHiddenLongitude").value, {
         method: 'GET',
     });
-    const data = await response.json();
+    const data = await response;
     let spanNum = document.getElementById("pagination-num");
     spanNum.innerText = 1;
+
+    (document.getElementById('mapView').setAttribute('data-geotags', data))
     updateDiscovery();
-    generateNewMap();
 });
 
 
@@ -133,10 +150,6 @@ const updateDiscovery = async () => {
       });
       //Aktualisiert Seite */
 
-    const response = await fetch('/coordinates', {
-        method: 'GET',
-    });
-    const data = await response.json();
 
     let fiveElementArray;
 
@@ -144,11 +157,14 @@ const updateDiscovery = async () => {
         console.log(returnData)
         maxPageNum = returnData.maxPageNumber
         fiveElementArray = returnData.arrayGeotags
+        fiveElements = fiveElementArray
+
         let newContent = '';
         fiveElementArray.forEach(function (gtag) {
             newContent += '<li>' + gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.hashtag + '</li>';
         });
         $('#discoveryResults').html(newContent);
+        updateMap(fiveElementArray);
     })
 }
 
@@ -176,7 +192,6 @@ document.getElementById("next-button").addEventListener("click", function (event
             console.log(returnData)
         }) */
         updateDiscovery()
-        generateNewMap();
     }
 });
 
@@ -189,7 +204,6 @@ document.getElementById("prev-button").addEventListener("click", function (event
               console.log(returnData)
           }) */
         updateDiscovery()
-        generateNewMap();
     }
 });
 

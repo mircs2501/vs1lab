@@ -93,6 +93,8 @@ module.exports = router;
 // TODO: ... your code here ...
 
 router.get('/coordinates', (req, res) => {
+  latitudeServer = req.query.discoveryHiddenLatitude;
+  longitudeServer = req.query.discoveryHiddenLongitude;
   res.status(200).send({
     latitudeClient: latitudeServer,
     longitudeClient: longitudeServer
@@ -200,10 +202,11 @@ router.get('/api/geotags/:id', (req, res) => {
   storage.getArray().forEach(element => {
     if (element.id == (req.params.id)) {
       geoTag = element;
-      url += '?' + (new URLSearchParams(params)).toString();
-
     }
   })
+  if (!geoTag) {
+    res.status(404).send();
+  }
   res.status(200).send(JSON.stringify(geoTag));
 })
 
